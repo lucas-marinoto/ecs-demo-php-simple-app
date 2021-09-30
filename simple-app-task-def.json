@@ -1,46 +1,55 @@
 {
-    "family": "console-sample-app",
-    "volumes": [
-        {
-            "name": "my-vol",
-            "host": {}
-        }
+    "family": "ECS-Service-simple-app",
+    "executionRoleArn": "arn:aws:iam::567897431931:role/ECS-Service-TaskExecutionRole-1W7MK217FWT3J",
+    "requiresCompatibilities": [
+        "EC2",
+        "FARGATE"
     ],
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
     "containerDefinitions": [
         {
-            "environment": [],
             "name": "simple-app",
-            "image": "amazon/amazon-ecs-sample",
-            "cpu": 10,
-            "memory": 500,
+            "image": "567897431931.dkr.ecr.us-east-1.amazonaws.com/ecs-codepipeline-repository-tkykoiunpih5:d7633503",
+            "cpu": 0,
+            "memory": 256,
+            "environment": [
+                {
+                    "name": "ENV_TEST",
+                    "value": "123456"
+                }
+            ],
             "portMappings": [
                 {
-                    "containerPort": 80,
-                    "hostPort": 80
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "containerPort": 80
                 }
             ],
-            "mountPoints": [
-                {
-                    "sourceVolume": "my-vol",
-                    "containerPath": "/var/www/my-vol"
-                }
-            ],
+            "essential": true,
             "entryPoint": [
                 "/usr/sbin/apache2",
                 "-D",
                 "FOREGROUND"
             ],
-            "essential": true
+            "mountPoints": [
+                {
+                    "containerPath": "/var/www/my-vol",
+                    "sourceVolume": "my-vol"
+                }
+            ]
         },
         {
             "name": "busybox",
             "image": "busybox",
-            "cpu": 10,
-            "memory": 500,
-            "volumesFrom": [
-            {
-              "sourceContainer": "simple-app"
-            }
+            "cpu": 0,
+            "memory": 256,
+            "environment": [
+                {
+                    "name": "ENV_TEST",
+                    "value": "123"
+                }
             ],
             "entryPoint": [
                 "sh",
@@ -49,7 +58,17 @@
             "command": [
                 "/bin/sh -c \"while true; do /bin/date > /var/www/my-vol/date; sleep 1; done\""
             ],
-            "essential": false
+            "mountPoints": [],
+            "volumesFrom": [
+                {
+                    "sourceContainer": "simple-app"
+                }
+            ]
+        }
+    ],
+    "volumes": [
+        {
+            "name": "my-vol"            
         }
     ]
 }

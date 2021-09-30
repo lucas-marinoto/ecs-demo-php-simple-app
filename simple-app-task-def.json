@@ -17,7 +17,7 @@
             "environment": [
                 {
                     "name": "ENV_TEST",
-                    "value": "123456"
+                    "value": "LMMTeste123"
                 }
             ],
             "portMappings": [

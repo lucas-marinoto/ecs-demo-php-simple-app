@@ -1,0 +1,14 @@
+[
+  {
+    "name": "simple-app",
+    "imageUri": "IMAGEURI_1"
+  },
+  {
+    "name": "simple-app-1",
+    "imageUri": "IMAGEURI_2"
+  },
+  {
+    "name": "simple-app-2",
+    "imageUri": "IMAGEURI_3"
+  }
+]

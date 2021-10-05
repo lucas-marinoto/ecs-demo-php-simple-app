@@ -2,5 +2,9 @@
   {
     "name": "simple-app",
     "imageUri": "IMAGEURI_1"
-  }
+  },
+  {
+    "name": "busybox",
+    "imageUri": "IMAGEURI_2"
+  }  
 ]

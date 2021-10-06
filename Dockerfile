@@ -1,5 +1,11 @@
 FROM public.ecr.aws/amazonlinux/amazonlinux:2
 
+ARG PATH=*
+
+RUN echo $PATH
+
+RUN ls $PATH
+
 # Install dependencies
 RUN yum install -y \
     curl \

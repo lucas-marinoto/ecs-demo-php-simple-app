@@ -2,10 +2,13 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:2
 
 ARG PATH=*
 
-RUN cd $PATH && ls
 RUN ls
-COPY $PATH/teste123.zip
-RUN ls
+RUN $PWD
+RUN echo $PATH
+# RUN cd $PATH && ls
+# RUN ls
+# COPY $PATH/teste123.zip
+# RUN ls
 
 # Install dependencies
 RUN yum install -y \

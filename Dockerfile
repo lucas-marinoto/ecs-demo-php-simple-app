@@ -4,6 +4,7 @@ ARG PATH=*
 
 RUN ls
 RUN $PWD
+RUN cd .. && ls
 RUN echo $PATH
 # RUN cd $PATH && ls
 # RUN ls

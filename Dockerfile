@@ -3,7 +3,6 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:2
 ARG PATH=*
 
 RUN ls
-RUN $PWD
 RUN cd .. && ls
 RUN echo $PATH
 # RUN cd $PATH && ls

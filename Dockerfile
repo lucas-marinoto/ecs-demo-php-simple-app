@@ -2,9 +2,10 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:2
 
 ARG PATH=*
 
-RUN echo $PATH
-
-RUN ls $PATH
+RUN cd $PATH && ls
+RUN ls
+COPY $PATH/teste123.zip
+RUN ls
 
 # Install dependencies
 RUN yum install -y \
@@ -12,9 +13,7 @@ RUN yum install -y \
     httpd \
     php \
  && ln -s /usr/sbin/httpd /usr/sbin/apache2
- 
- RUN ls
- RUN pwd
+
 
 # Install app
 RUN rm -rf /var/www/html/* && mkdir -p /var/www/html

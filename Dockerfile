@@ -1,4 +1,4 @@
-FROM public.ecr.aws/amazonlinux/amazonlinux:2 as img1
+FROM public.ecr.aws/amazonlinux/amazonlinux:2
 
 # Install dependencies
 RUN yum install -y \
@@ -6,6 +6,9 @@ RUN yum install -y \
     httpd \
     php \
  && ln -s /usr/sbin/httpd /usr/sbin/apache2
+ 
+ RUN ls
+ RUN pwd
 
 # Install app
 RUN rm -rf /var/www/html/* && mkdir -p /var/www/html
@@ -21,27 +24,3 @@ EXPOSE 80
 
 CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
 
-
-
-FROM public.ecr.aws/amazonlinux/amazonlinux:2 as img2
-
-# Install dependencies
-RUN yum install -y \
-    curl \
-    httpd \
-    php \
- && ln -s /usr/sbin/httpd /usr/sbin/apache2
-
-# Install app
-RUN rm -rf /var/www/html/* && mkdir -p /var/www/html
-ADD src /var/www/html
-
-# Configure apache
-RUN chown -R apache:apache /var/www
-ENV APACHE_RUN_USER apache
-ENV APACHE_RUN_GROUP apache
-ENV APACHE_LOG_DIR /var/log/apache2
-
-EXPOSE 80
-
-CMD ["/usr/sbin/apache2", "-D",  "FOREGROUND"]
